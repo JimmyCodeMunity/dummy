@@ -1,7 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const Product = require('./models/ProductModel')
-const productRoute = require('./routes/ProductRoute')
+const productRoute = require('./routes/ProductRoute');
+const userRoute = require('./routes/ProductRoute')
 
 
 
@@ -48,6 +49,7 @@ mongoose.set('strictQuery', true);
 
 
 app.use('/api/product', productRoute)
+app.use('/api/user', userRoute)
 
 app.get('/',(req,res)=>{
     res.send('Server started')
