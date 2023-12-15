@@ -1,47 +1,59 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const cors = require('cors');
-//const bodyParser = require('body-parser');
-const Product = require('./models/ProductModel');
-const User = require('./models/UserModel');
-const productRoute = require('./routes/ProductRoute');
-const userRoute = require('./routes/UserRoute');
-const shopRoute = require('./routes/ShopRoutes');
+
+
+
+require('dotenv').config();
+
 
 const app = express();
 
-// Middleware
-app.use(cors());
-app.use(express.json()); // You can use express.json() instead of body-parser for JSON parsing
-app.use(express.urlencoded({ extended: false }));
+const cors = require('cors');
+
+
+app.use(cors())
+
+
+//allow json requests to be sent to the server
+app.use(express.json())
+
+//allow url encoded for from input
+app.use(express.urlencoded({extended:false}))
+
+
+if(process.env.NODE_ENV !== 'PRODUCTION'){
+    require("dotenv").config({
+      path:"./.env"
+    })
+  }
+
+
+  const port = process.env.PORT;
+
+app.listen(port,(req,res) => {
+    console.log(`Server running on port ${port}`)
+})
+
 
 // Connect to MongoDB
-const connectToMongoDB = async () => {
-  try {
-    await mongoose.connect('mongodb+srv://Collo:Collo77@cluster0.bo6bwv7.mongodb.net/test?retryWrites=true&w=majority', {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    console.log('Connected to MongoDB');
-  } catch (error) {
-    console.error('Failed to connect to MongoDB', error);
-  }
-};
+mongoose.connect("mongodb+srv://Collo:Collo77@cluster0.bo6bwv7.mongodb.net/test?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('Connected to MongoDB'))
+  .catch(err => console.error('Failed to connect to MongoDB', err));
+//strict query
+mongoose.set('strictQuery', true);
 
-// Call the connectToMongoDB function to establish the MongoDB connection
-connectToMongoDB();
+app.get('/',(req,res)=>{
+    res.send('Server started')
+})
 
-// Routes
-app.use('/api/product', productRoute);
-app.use('/api/user', userRoute);
-app.use('/api/shop', shopRoute);
-
-app.get('/', (req, res) => {
-  res.send('Opasso server initiated');
-});
-
-const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => {
-  console.log(`Server started on port ${PORT}`);
-});
+app.get('/productlist',async (req,res)=>{
+    try {
+        const product = await Product.find({});
+        res.status(200).json(product);
+        
+    } catch (error) {
+        console.log('error fetching');
+        res.status(500).json({message: error.message});
+        
+    }
+})
