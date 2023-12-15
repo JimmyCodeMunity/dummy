@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const Product = require('./models/ProductModel')
-const User = require('./models/UserModel')
+//const User = require('./models/UserModel')
 const productRoute = require('./routes/ProductRoute');
 // const userRoute = require('./routes/UserRoute')
 
@@ -68,14 +68,4 @@ app.get('/productlist',async (req,res)=>{
     }
 })
 
-app.get('/usersinfo',async (req,res)=>{
-    try {
-        const user = await User.find({});
-        res.status(200).json(user);
-        
-    } catch (error) {
-        console.log('error fetching');
-        res.status(500).json({message: error.message});
-        
-    }
-})
+
