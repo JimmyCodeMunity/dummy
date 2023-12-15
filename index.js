@@ -45,6 +45,10 @@ mongoose.connect("mongodb+srv://Collo:Collo77@cluster0.bo6bwv7.mongodb.net/test?
 //strict query
 mongoose.set('strictQuery', true);
 
+
+
+app.use('/api/product', productRoute)
+
 app.get('/',(req,res)=>{
     res.send('Server started')
 })
