@@ -1,14 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-// const Product = require('./models/ProductModel')
-// const User = require('./models/UserModel')
-// const productRoute = require('./routes/ProductRoute')
-// const userRoute = require('./routes/UserRoute');
-// const shopRoute = require('./routes/ShopRoutes');
 
-
-const cors = require('cors');
 
 require('dotenv').config();
 
@@ -26,10 +19,6 @@ app.use(express.json())
 
 //allow url encoded for from input
 app.use(express.urlencoded({extended:false}))
-
-// app.use('/api/product', productRoute)
-// app.use('/api/user', userRoute)
-// app.use('/api/shop',shopRoute)
 
 
 if(process.env.NODE_ENV !== 'PRODUCTION'){
