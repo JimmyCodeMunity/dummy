@@ -38,8 +38,41 @@ const getSubcategories = async (req, res) => {
     }
 }
 
+//get product by category
+const getProductByCategory = async (req, res) => {
+    try {
+        const { category } = req.params;
+
+        const product = await Product.find({ category });
+        if (!product) {
+            res.status(404).json({ message: 'you have no category' });
+        }
+        res.status(200).json(product);
+    }
+    catch (error) {
+        res.status(500).json({ message: error.message });
+
+    }
+}
+
+//get product by shopid
+const getProductByShopId = async(req,res)=>{
+    try {
+      const { shopId } = req.params;
+  
+      // Assuming you have a Product model with a 'shopId' field
+      const products = await Product.find({ shopId });
+  
+      res.status(200).json(products);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  }
+
 
 module.exports = {
     getAllProducts,
-    getSubcategories
+    getSubcategories,
+    getProductByCategory,
+    getProductByShopId
 }
