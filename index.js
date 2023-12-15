@@ -27,9 +27,9 @@ app.use(express.json())
 //allow url encoded for from input
 app.use(express.urlencoded({extended:false}))
 
-app.use('/api/product', productRoute)
-app.use('/api/user', userRoute)
-app.use('/api/shop',shopRoute)
+// app.use('/api/product', productRoute)
+// app.use('/api/user', userRoute)
+// app.use('/api/shop',shopRoute)
 
 
 if(process.env.NODE_ENV !== 'PRODUCTION'){
