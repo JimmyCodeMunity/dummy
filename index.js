@@ -1,10 +1,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const Product = require('./models/ProductModel')
-//const User = require('./models/UserModel')
+const User = require('./models/UserModel')
 const productRoute = require('./routes/ProductRoute');
 const shopRoute = require('./routes/ShopRoutes');
-// const userRoute = require('./routes/UserRoute')
+const userRoute = require('./routes/UserRoute')
 
 
 
@@ -51,7 +51,7 @@ mongoose.set('strictQuery', true);
 
 
 app.use('/api/product', productRoute)
-// app.use('/api/user', userRoute)
+app.use('/api/user', userRoute)
 app.use('/api/shop',shopRoute)
 
 app.get('/',(req,res)=>{
