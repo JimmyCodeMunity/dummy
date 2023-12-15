@@ -1,4 +1,6 @@
 const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
 require('dotenv').config();
 
@@ -31,6 +33,13 @@ app.listen(port,(req,res) => {
     console.log(`Server running on port ${port}`)
 })
 
+
+// Connect to MongoDB
+mongoose.connect("mongodb+srv://Collo:Collo77@cluster0.bo6bwv7.mongodb.net/test?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('Connected to MongoDB'))
+  .catch(err => console.error('Failed to connect to MongoDB', err));
+//strict query
+mongoose.set('strictQuery', true);
 
 app.get('/',(req,res)=>{
     res.send('Server started')
